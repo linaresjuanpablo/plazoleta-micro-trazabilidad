@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.trazabilidad.infrastructure.input.rest.OrderLogRestControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-03-24T02:18:05" hostname="DESKTOP-6U4UTQC" time="0.203">
+  <properties/>
+  <testcase name="getOrderHistory_withLongCredentials_extractsUserIdCorrectly()" classname="com.gastropolis.trazabilidad.infrastructure.input.rest.OrderLogRestControllerTest" time="0.178"/>
+  <testcase name="getOrderHistory_withNonLongCredentials_returnsNullUserId()" classname="com.gastropolis.trazabilidad.infrastructure.input.rest.OrderLogRestControllerTest" time="0.006"/>
+  <testcase name="getOrderHistory_withNullPrincipal_returnsNullUserId()" classname="com.gastropolis.trazabilidad.infrastructure.input.rest.OrderLogRestControllerTest" time="0.004"/>
+  <testcase name="createOrderLog_returnsCreatedStatus()" classname="com.gastropolis.trazabilidad.infrastructure.input.rest.OrderLogRestControllerTest" time="0.005"/>
+  <testcase name="getEfficiency_returnsEfficiencyData()" classname="com.gastropolis.trazabilidad.infrastructure.input.rest.OrderLogRestControllerTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

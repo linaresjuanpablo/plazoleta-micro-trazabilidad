@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.trazabilidad.infrastructure.out.jpa.adapter.OrderLogJpaAdapterTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-03-24T02:18:05" hostname="DESKTOP-6U4UTQC" time="0.566">
+  <properties/>
+  <testcase name="findByOrderId_emptyList_returnsEmpty()" classname="com.gastropolis.trazabilidad.infrastructure.out.jpa.adapter.OrderLogJpaAdapterTest" time="0.512"/>
+  <testcase name="findAll_returnsAllModels()" classname="com.gastropolis.trazabilidad.infrastructure.out.jpa.adapter.OrderLogJpaAdapterTest" time="0.007"/>
+  <testcase name="save_persistsModelAndReturnsResult()" classname="com.gastropolis.trazabilidad.infrastructure.out.jpa.adapter.OrderLogJpaAdapterTest" time="0.01"/>
+  <testcase name="findByOrderId_returnsModelList()" classname="com.gastropolis.trazabilidad.infrastructure.out.jpa.adapter.OrderLogJpaAdapterTest" time="0.023"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

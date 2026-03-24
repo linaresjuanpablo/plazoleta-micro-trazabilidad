@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderLogRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-trazabilidad</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.trazabilidad.infrastructure.input.rest</a> &gt; <span class="el_source">OrderLogRestController.java</span></div><h1>OrderLogRestController.java</h1><pre class="source lang-java linenums">package com.gastropolis.trazabilidad.infrastructure.input.rest;
+
+import com.gastropolis.trazabilidad.application.dto.request.CreateOrderLogRequestDto;
+import com.gastropolis.trazabilidad.application.dto.response.EfficiencyResultDto;
+import com.gastropolis.trazabilidad.application.dto.response.OrderLogResponseDto;
+import com.gastropolis.trazabilidad.application.handler.IOrderLogHandler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/v1/traceability&quot;)
+@RequiredArgsConstructor
+@Tag(name = &quot;Trazabilidad&quot;, description = &quot;API para gestiÃ³n de trazabilidad de pedidos&quot;)
+@SecurityRequirement(name = &quot;bearerAuth&quot;)
+public class OrderLogRestController {
+
+    private final IOrderLogHandler orderLogHandler;
+
+    @PostMapping(&quot;/&quot;)
+    @Operation(
+            summary = &quot;Registrar cambio de estado de pedido (HU17)&quot;,
+            description = &quot;Crea un nuevo log de trazabilidad para un pedido. Uso interno desde MS-Plazoleta.&quot;
+    )
+    public ResponseEntity&lt;OrderLogResponseDto&gt; createOrderLog(
+            @Valid @RequestBody CreateOrderLogRequestDto requestDto) {
+<span class="fc" id="L37">        OrderLogResponseDto response = orderLogHandler.createOrderLog(requestDto);</span>
+<span class="fc" id="L38">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
+    }
+
+    @GetMapping(&quot;/order/{orderId}&quot;)
+    @Operation(
+            summary = &quot;Ver historial de un pedido (HU17)&quot;,
+            description = &quot;Retorna el historial de cambios de estado de un pedido. &quot; +
+                          &quot;Solo accesible por el cliente dueÃ±o del pedido.&quot;
+    )
+    public ResponseEntity&lt;List&lt;OrderLogResponseDto&gt;&gt; getOrderHistory(
+            @PathVariable Long orderId,
+            @RequestHeader(&quot;Authorization&quot;) String token,
+            Principal principal) {
+<span class="fc" id="L51">        Long requestingUserId = extractUserId(principal);</span>
+<span class="fc" id="L52">        List&lt;OrderLogResponseDto&gt; history = orderLogHandler.getOrderHistory(orderId, requestingUserId, token);</span>
+<span class="fc" id="L53">        return ResponseEntity.ok(history);</span>
+    }
+
+    @GetMapping(&quot;/efficiency&quot;)
+    @PreAuthorize(&quot;hasAuthority('PROPIETARIO')&quot;)
+    @Operation(
+            summary = &quot;Ver eficiencia de empleados (HU18)&quot;,
+            description = &quot;Retorna estadÃ­sticas de eficiencia: tiempo por pedido y ranking de empleados. &quot; +
+                          &quot;Solo para PROPIETARIO.&quot;
+    )
+    public ResponseEntity&lt;EfficiencyResultDto&gt; getEfficiency(
+            @RequestHeader(&quot;Authorization&quot;) String token) {
+<span class="fc" id="L65">        EfficiencyResultDto efficiency = orderLogHandler.getEfficiency(token);</span>
+<span class="fc" id="L66">        return ResponseEntity.ok(efficiency);</span>
+    }
+
+    private Long extractUserId(Principal principal) {
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (principal instanceof UsernamePasswordAuthenticationToken authToken) {</span>
+<span class="fc" id="L71">            Object credentials = authToken.getCredentials();</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            if (credentials instanceof Long) {</span>
+<span class="fc" id="L73">                return (Long) credentials;</span>
+            }
+        }
+<span class="fc" id="L76">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

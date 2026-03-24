@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderLogHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-trazabilidad</a> &gt; <a href="index.source.html" class="el_package">com.gastropolis.trazabilidad.application.handler.impl</a> &gt; <span class="el_source">OrderLogHandler.java</span></div><h1>OrderLogHandler.java</h1><pre class="source lang-java linenums">package com.gastropolis.trazabilidad.application.handler.impl;
+
+import com.gastropolis.trazabilidad.application.dto.request.CreateOrderLogRequestDto;
+import com.gastropolis.trazabilidad.application.dto.response.EfficiencyResultDto;
+import com.gastropolis.trazabilidad.application.dto.response.OrderLogResponseDto;
+import com.gastropolis.trazabilidad.application.handler.IOrderLogHandler;
+import com.gastropolis.trazabilidad.application.mapper.IEfficiencyResponseMapper;
+import com.gastropolis.trazabilidad.application.mapper.IOrderLogRequestMapper;
+import com.gastropolis.trazabilidad.application.mapper.IOrderLogResponseMapper;
+import com.gastropolis.trazabilidad.domain.api.IOrderLogServicePort;
+import com.gastropolis.trazabilidad.domain.model.EfficiencyResult;
+import com.gastropolis.trazabilidad.domain.model.OrderLogModel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class OrderLogHandler implements IOrderLogHandler {
+
+    private final IOrderLogServicePort orderLogServicePort;
+    private final IOrderLogRequestMapper orderLogRequestMapper;
+    private final IOrderLogResponseMapper orderLogResponseMapper;
+    private final IEfficiencyResponseMapper efficiencyResponseMapper;
+
+    @Override
+    public OrderLogResponseDto createOrderLog(CreateOrderLogRequestDto requestDto) {
+<span class="fc" id="L31">        OrderLogModel model = orderLogRequestMapper.toModel(requestDto);</span>
+<span class="fc" id="L32">        OrderLogModel saved = orderLogServicePort.saveOrderLog(model);</span>
+<span class="fc" id="L33">        return orderLogResponseMapper.toDto(saved);</span>
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List&lt;OrderLogResponseDto&gt; getOrderHistory(Long orderId, Long requestingUserId, String token) {
+<span class="fc" id="L39">        List&lt;OrderLogModel&gt; logs = orderLogServicePort.getOrderHistory(orderId, requestingUserId, token);</span>
+<span class="fc" id="L40">        return orderLogResponseMapper.toDtoList(logs);</span>
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public EfficiencyResultDto getEfficiency(String token) {
+<span class="fc" id="L46">        EfficiencyResult result = orderLogServicePort.getEfficiency(token);</span>
+<span class="fc" id="L47">        return efficiencyResponseMapper.toEfficiencyResultDto(result);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-03-24T02:18:05" hostname="DESKTOP-6U4UTQC" time="0.315">
+  <properties/>
+  <testcase name="getOrderHistory_whenOwnerAndNoEmployee_setsClientNameOnly()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.148"/>
+  <testcase name="saveOrderLog_delegatesToPersistencePort()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.009"/>
+  <testcase name="getOrderHistory_whenOwnerAndEmployeePresent_setsClientAndEmployeeName()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.01"/>
+  <testcase name="getOrderHistory_whenLogsEmpty_throwsOrderLogNotFoundException()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.011"/>
+  <testcase name="getEfficiency_whenNoLogs_returnsEmptyResult()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.012"/>
+  <testcase name="getEfficiency_withIncompleteOrder_notAddedToResult()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.016"/>
+  <testcase name="getEfficiency_withCompleteOrderAndEmployee_calculatesCorrectly()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.015"/>
+  <testcase name="getOrderHistory_withMultipleLogs_mixedEmployeePresence()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.011"/>
+  <testcase name="getEfficiency_multipleOrdersMultipleEmployees_sortedByAverageDuration()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.008"/>
+  <testcase name="getOrderHistory_whenRequestingUserIsNotOwner_throwsAccessDeniedException()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.009"/>
+  <testcase name="getOrderHistory_whenLogsNull_throwsOrderLogNotFoundException()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.007"/>
+  <testcase name="getEfficiency_sameEmployeeMultipleOrders_averageDurationComputed()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.012"/>
+  <testcase name="getEfficiency_withCompleteOrderButNoEmployee_orderRecordedNoEmployeeRanking()" classname="com.gastropolis.trazabilidad.domain.usecase.OrderLogUseCaseTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
